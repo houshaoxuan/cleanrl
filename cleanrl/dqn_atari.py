@@ -50,13 +50,13 @@ class Args:
     # Algorithm specific arguments
     env_id: str = "BreakoutNoFrameskip-v4"
     """the id of the environment"""
-    total_timesteps: int = 10000000
+    total_timesteps: int = 3e6
     """total timesteps of the experiments"""
     learning_rate: float = 1e-4
     """the learning rate of the optimizer"""
     num_envs: int = 1
     """the number of parallel game environments"""
-    buffer_size: int = 1000000
+    buffer_size: int = 10000
     """the replay memory buffer size"""
     gamma: float = 0.99
     """the discount factor gamma"""
@@ -167,6 +167,8 @@ poetry run pip install "stable_baselines3==2.0.0a1" "gymnasium[atari,accept-rom-
     torch.backends.cudnn.deterministic = args.torch_deterministic
 
     device = torch.device("cuda" if torch.cuda.is_available() and args.cuda else "cpu")
+    print(torch.cuda.is_available())
+    print(device, 'device')
 
     # env setup
     envs = gym.vector.SyncVectorEnv(
